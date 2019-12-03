@@ -1,0 +1,21 @@
+﻿.has-arrows{
+    position: relative;
+    padding-right: 25px;
+}
+
+.has-arrows a{
+    color: inherit;
+}
+
+.has-arrows .arrow-up,
+.has-arrows .arrow-down{
+    position: absolute;
+}
+
+.has-arrows .arrow-up{
+    top: -5px;
+}
+
+.has-arrows .arrow-down{
+    bottom: -5px;
+}
