@@ -47,25 +47,46 @@
         <td>
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
     </tr>
 }
 
 </table>
 
-<table class="table">
+<table class="table is-bordered is-hoverable is-narrow">
+    <tr>
+        <th>Сотрудник</th>
+        <th>Должность</th>
+        @foreach(var week in Model.ToList()[0].Points)
+        {
+            <th>@week.Date.ToString("dd-MM-yyyy")</th>
+        }
+    </tr>
     @foreach(var item in Model)
     {
         <tr>
-            <td>@item.FirstName @item.SecondName</td>
+            <td><span class="is-italic is-size-4">@item.FirstName @item.SecondName</span></td>
             <td>@item.Job</td>
-            @foreach(var point in item.Points)
+
+            <td><span class="is-size-3">@item.Points[0].Value</span></td>
+
+            @for(var i = 1; i< item.Points.Count(); i++)
             {
-                <td>@point.Value @point.Gap.ToString("p")</td>
+            <td>
+                <span class="is-size-3">@item.Points[i].Value</span>
+                @if (item.Points[i].Value > item.Points[i - 1].Value)
+                {
+                    <span class="icon has-text-success">
+                        <i class="fas fa-angle-double-up"></i>
+                    </span>
+                }
+                else
+                {
+                    <span class="icon has-text-danger">
+                        <i class="fas fa-angle-double-down"></i>
+                    </span>
+                }
+                <span class="is-size-6">@item.Points[i].Gap.ToString("p")</span>
+            </td>
             }
         </tr>
     }
