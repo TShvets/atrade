@@ -1,4 +1,5 @@
 ﻿using PeopleReport.Repository;
+using PeopleReport.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,12 @@ namespace PeopleReport.Controllers
         public ActionResult Index()
         {
             var list = _personPointsRepository.GetAllPersonPoints();
-            return View(list);
+            var model = new List<PersonPointsWrapper>();
+            foreach(var item in list)
+            {
+                model.Add(new PersonPointsWrapper(item));
+            }
+            return View(model);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PeopleReport.Models.PersonPoints>
+﻿@model IEnumerable<PeopleReport.Wrappers.PersonPointsWrapper>
 
 @{
     ViewBag.Title = "Index";
@@ -55,4 +55,18 @@
     </tr>
 }
 
+</table>
+
+<table class="table">
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.FirstName @item.SecondName</td>
+            <td>@item.Job</td>
+            @foreach(var point in item.Points)
+            {
+                <td>@point.Value @point.Gap.ToString("p")</td>
+            }
+        </tr>
+    }
 </table>

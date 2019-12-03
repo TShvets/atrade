@@ -15,6 +15,6 @@ namespace PeopleReport.Models
         public string PhoneNumber { get; set; }
         public Locations Location { get; set; }
         public Jobs Job { get; set; }
-        public IEnumerable<Point> Points { get; set; }
+        public IList<Point> Points { get; set; }
     }
 }
