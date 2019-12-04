@@ -19,3 +19,15 @@
 .has-arrows .arrow-down{
     bottom: -5px;
 }
+
+.has-crown-mark{
+    line-height: 1;
+    position: relative;
+    padding-top: 25px;
+}
+
+.has-crown-mark .crown-mark{
+    position: absolute;
+    top: 0;
+    color: gold;
+}

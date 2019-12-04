@@ -54,7 +54,21 @@
 
 <table class="table is-bordered is-hoverable is-narrow">
     <tr>
-        <th>Сотрудник</th>
+        <th>
+            <div class="has-arrows">
+                Сотрудник
+                <a href="?pointId=0&sortOrder=1">
+                    <span class="icon arrow-up">
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                </a>
+                <a href="?pointId=0&sortOrder=0">
+                    <span class="icon arrow-down">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </a>
+            </div>
+        </th>
         <th>Должность</th>
         @for(var i = 0; i< Model.ToList()[0].Points.Count; i++)
         {
@@ -75,26 +89,46 @@
             <td><span class="is-italic is-size-4">@item.FirstName @item.SecondName</span></td>
             <td>@item.Job</td>
 
-            <td><span class="is-size-3">@item.Points[0].Value</span></td>
+            <td>
+                @*<div class="has-crown-mark">
+                    <span class="icon crown-mark">
+                        <i class="fas fa-crown"></i>
+                    </span>
+                    <span class="is-size-3">@item.Points[0].Value</span>
+                </div>*@
+                <span class="is-size-3">@item.Points[0].Value</span>
+            </td>
 
             @for(var i = 1; i< item.Points.Count(); i++)
             {
-            <td>
+        <td>
+            @if (item.Points[i].IsMaximum == true)
+            {
+                <div class="has-crown-mark">
+                    <span class="icon crown-mark">
+                        <i class="fas fa-crown"></i>
+                    </span>
+                    <span class="is-size-3">@item.Points[i].Value</span>
+                </div>
+            }
+            else
+            {
                 <span class="is-size-3">@item.Points[i].Value</span>
-                @if (item.Points[i].Value > item.Points[i - 1].Value)
-                {
-                    <span class="icon has-text-success">
-                        <i class="fas fa-angle-double-up"></i>
-                    </span>
-                }
-                else
-                {
-                    <span class="icon has-text-danger">
-                        <i class="fas fa-angle-double-down"></i>
-                    </span>
-                }
-                <span class="is-size-6">@item.Points[i].Gap.ToString("p")</span>
-            </td>
+            }
+            @if (item.Points[i].Value > item.Points[i - 1].Value)
+            {
+                <span class="icon has-text-success">
+                    <i class="fas fa-angle-double-up"></i>
+                </span>
+            }
+            else
+            {
+                <span class="icon has-text-danger">
+                    <i class="fas fa-angle-double-down"></i>
+                </span>
+            }
+            <span class="is-size-6">@item.Points[i].Gap.ToString("p")</span>
+        </td>
             }
         </tr>
     }

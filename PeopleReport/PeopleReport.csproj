@@ -151,6 +151,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IPersonPointsRepository.cs" />
     <Compile Include="Repository\MockPersonPointsRepository.cs" />
+    <Compile Include="Utils\PersonPointsSortingUtil.cs" />
     <Compile Include="Wrappers\PersonPointsWrapper.cs" />
     <Compile Include="Wrappers\PointWrapper.cs" />
   </ItemGroup>

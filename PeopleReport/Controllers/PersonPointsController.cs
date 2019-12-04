@@ -1,4 +1,5 @@
 ﻿using PeopleReport.Repository;
+using PeopleReport.Utils;
 using PeopleReport.Wrappers;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace PeopleReport.Controllers
         {
             _personPointsRepository = repository;
         }
-        public ActionResult Index(int pointId = 0, int sortOrder= 0)
+        public ActionResult Index(int pointId = -1, int sortOrder= 0)
         {
             var list = _personPointsRepository.GetAllPersonPoints();
             var model = new List<PersonPointsWrapper>();
@@ -25,15 +26,33 @@ namespace PeopleReport.Controllers
                 model.Add(new PersonPointsWrapper(item));
             }
 
-            if (pointId != 0 && pointId < model[0].Points.Count)
+            PersonPointsSortingUtil.CalculateMaxResults(model);
+
+            if (pointId == 0)//sort by profession
             {
+                //to do - create sorting by profession
+                // for now - leave sorting by id
                 if (sortOrder == 0)
                 {
-                    model = model.OrderBy(c => c.Points[pointId].Gap).ToList();
+                    model = model.OrderBy(c => c.Id).ToList();
                 }
                 else
                 {
-                    model = model.OrderByDescending(c => c.Points[pointId].Gap).ToList();
+                    model = model.OrderByDescending(c => c.Id).ToList();
+                }
+            }
+            else
+            {
+                if (pointId != -1 && pointId < model[0].Points.Count)
+                {
+                    if (sortOrder == 0)
+                    {
+                        model = model.OrderBy(c => c.Points[pointId].Gap).ToList();
+                    }
+                    else
+                    {
+                        model = model.OrderByDescending(c => c.Points[pointId].Gap).ToList();
+                    }
                 }
             }
             return View(model);

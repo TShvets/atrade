@@ -9,5 +9,6 @@ namespace PeopleReport.Wrappers
     public class PointWrapper: Point
     {
         public double Gap { get; set; }
+        public bool IsMaximum { get; set; }
     }
 }
