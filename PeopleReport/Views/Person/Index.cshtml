@@ -1,0 +1,50 @@
+﻿@model PeopleReport.Models.PersonPoints
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <div class="columns">
+        <div class="column">
+            <h1 class="title title-size-4rem">@Model.Job</h1>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="columns">
+                <div class="column is-5 is-paddingless">
+                    <figure class="image"><img src="@Model.PhotoUrl"></figure>
+                </div>
+                <div class="column is-6 media-right">
+                    <div style="padding-top:2.3rem">
+                        <p class="title is-4">@Model.SecondName @Model.FirstName @Model.ThirdName</p>
+                        <p class="subtitle is-6">@Model.Location</p>
+                        <a href="mailto:@Model.Email">@Model.Email</a>
+                        <br>
+                        <a href="#">@Model.PhoneNumber</a>
+                    </div>
+                    <div style="padding:2rem 0 2rem 0">
+                        <p>@Model.Notes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns" style="padding-top:2rem">
+        @*//to do - create logic to display 5+ items*@
+        @foreach (var related in ViewBag.Related)
+        {
+        <div class="column is-one-quarter">
+            <div class="box">
+                <a href="/Person?personId=@related.Id">
+                    <div class="has-image-center"><figure class="image is-96x96"><img src="@related.PhotoUrl"></figure></div>
+                    <div class="has-text-centered"><p class="title is-4">@related.FirstName</p><p class="subtitle is-6">@related.SecondName</p></div>
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+</div>

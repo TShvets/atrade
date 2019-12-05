@@ -10,5 +10,8 @@ namespace PeopleReport.Repository
     public interface IPersonPointsRepository
     {
         IEnumerable<PersonPoints> GetAllPersonPoints();
+        PersonPoints GetPersonById(int id);
+
+        IEnumerable<PersonPoints> GetRelatedPersons(int id);
     }
 }

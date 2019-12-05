@@ -1,4 +1,13 @@
-﻿.has-arrows{
+﻿table.table-has-arrows a{
+    color: inherit;
+}
+
+table.table-has-arrows th,
+table.table-has-arrows td {
+    vertical-align: middle;
+}
+
+.has-arrows{
     position: relative;
     padding-right: 25px;
 }
@@ -30,4 +39,11 @@
     position: absolute;
     top: 0;
     color: gold;
+}
+
+.has-image-center {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 10rem;
 }

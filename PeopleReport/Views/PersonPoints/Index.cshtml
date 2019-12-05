@@ -52,7 +52,7 @@
 
 </table>
 
-<table class="table is-bordered is-hoverable is-narrow">
+<table class="table is-bordered is-hoverable is-narrow table-has-arrows">
     <tr>
         <th>
             <div class="has-arrows">
@@ -86,22 +86,16 @@
     @foreach(var item in Model)
     {
         <tr>
-            <td><span class="is-italic is-size-4">@item.FirstName @item.SecondName</span></td>
+            <td><span class="is-italic is-size-4"><a href="/Person?personId=@item.Id">@item.FirstName @item.SecondName</a></span></td>
             <td>@item.Job</td>
 
             <td>
-                @*<div class="has-crown-mark">
-                    <span class="icon crown-mark">
-                        <i class="fas fa-crown"></i>
-                    </span>
-                    <span class="is-size-3">@item.Points[0].Value</span>
-                </div>*@
                 <span class="is-size-3">@item.Points[0].Value</span>
             </td>
 
             @for(var i = 1; i< item.Points.Count(); i++)
             {
-        <td>
+        <td align="left">
             @if (item.Points[i].IsMaximum == true)
             {
                 <div class="has-crown-mark">
@@ -127,7 +121,13 @@
                     <i class="fas fa-angle-double-down"></i>
                 </span>
             }
-            <span class="is-size-6">@item.Points[i].Gap.ToString("p")</span>
+            <span class="is-size-6">
+                @if(item.Points[i].Gap > 0)
+                {
+                    <span>+</span>
+                }
+                @item.Points[i].Gap.ToString("p")
+            </span>
         </td>
             }
         </tr>

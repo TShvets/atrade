@@ -140,6 +140,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\PersonPointsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +186,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
+    <Content Include="Views\Person\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

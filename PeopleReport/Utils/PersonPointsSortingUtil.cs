@@ -23,7 +23,7 @@ namespace PeopleReport.Utils
                         }
                     }
 
-                    if (source[i].Points[j].Gap == max)
+                    if (j >= 2 && source[i].Points[j].Value > source[i].Points[j-1].Value&& source[i].Points[j-1].Value > source[i].Points[j - 2].Value && source[i].Points[j].Gap == max)
                     {
                         source[i].Points[j].IsMaximum = true;
                     }

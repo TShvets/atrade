@@ -13,8 +13,10 @@ namespace PeopleReport.Models
         public string ThirdName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public string PhotoUrl { get; set; }
         public Locations Location { get; set; }
         public Jobs Job { get; set; }
+        public string Notes { get; set; }
         public IList<Point> Points { get; set; }
     }
 }
