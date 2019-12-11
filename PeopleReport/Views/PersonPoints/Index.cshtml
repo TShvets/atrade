@@ -5,64 +5,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecondName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThirdName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThirdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThirdName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThirdName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>*@
 
-<table class="table is-bordered is-hoverable is-narrow table-has-arrows">
+<nav class="pagination filter-button-group" role="navigation" aria-label="pagination">
+    <a class="pagination-link" href="?start=@DateTime.Now.AddMonths(-2)&finish=@DateTime.Now">Месяц назад</a>
+    <a class="pagination-link @(ViewBag.IsShowCurrentMonth == true? "button is-primary" : "")" href="?start=@DateTime.Now.AddMonths(-1)&finish=@DateTime.Now">Текущий месяц</a>
+</nav>
+<nav class="pagination filter-button-group" role="navigation" aria-label="pagination">
+    <a class="pagination-link @(ViewBag.IsShowAll == true? "button is-primary" : "")" href="/PersonPoints/Index">Показать всё</a>
+</nav>
+
+<table class="table is-bordered is-hoverable is-narrow table-has-arrows fixed-width-table">
     <tr>
         <th>
             <div class="has-arrows">
                 Сотрудник
-                <a href="?pointId=0&sortOrder=1">
+                <a href="?pointId=0&sortOrder=1@(ViewBag.IsShowCurrentMonth == true? ("&start=" + @DateTime.Now.AddMonths(-1) + "&finish=" + @DateTime.Now) : "")">
                     <span class="icon arrow-up">
                         <i class="fas fa-chevron-up"></i>
                     </span>
                 </a>
-                <a href="?pointId=0&sortOrder=0">
+                <a href="?pointId=0&sortOrder=0@(ViewBag.IsShowCurrentMonth == true? ("&start=" + @DateTime.Now.AddMonths(-1) + "&finish=" + @DateTime.Now) : "")">
                     <span class="icon arrow-down">
                         <i class="fas fa-chevron-down"></i>
                     </span>
@@ -70,65 +78,71 @@
             </div>
         </th>
         <th>Должность</th>
-        @for(var i = 0; i< Model.ToList()[0].Points.Count; i++)
+        @for (var i = 0; i < Model.ToList()[0].Points.Count; i++)
         {
-            <th><div class="has-arrows">
-                @Model.ToList()[0].Points[i].Date.ToString("dd-MM-yyyy")
-                <a href="?pointId=@i&sortOrder=1"><span class="icon arrow-up">
-                    <i class="fas fa-chevron-up"></i>
-                </span></a>
-                <a href="?pointId=@i&sortOrder=0"><span class="icon arrow-down">
-                    <i class="fas fa-chevron-down"></i>
-                </span></a>
-            </div></th>
+            <th>
+                <div class="has-arrows">
+                    @Model.ToList()[0].Points[i].Date.ToString("dd-MM-yyyy")
+                    <a href="?pointId=@Model.ToList()[0].Points[i].Index&sortOrder=1@(ViewBag.IsShowCurrentMonth == true? ("&start=" + @DateTime.Now.AddMonths(-1) + "&finish=" + @DateTime.Now) : "")">
+                        <span class="icon arrow-up">
+                            <i class="fas fa-chevron-up"></i>
+                        </span>
+                    </a>
+                    <a href="?pointId=@Model.ToList()[0].Points[i].Index&sortOrder=0@(ViewBag.IsShowCurrentMonth == true? ("&start=" + @DateTime.Now.AddMonths(-1) + "&finish=" + @DateTime.Now) : "")">
+                        <span class="icon arrow-down">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </a>
+                </div>
+            </th>
         }
     </tr>
-    @foreach(var item in Model)
+    @foreach (var item in Model)
     {
         <tr>
             <td><span class="is-italic is-size-4"><a href="/Person?personId=@item.Id">@item.FirstName @item.SecondName</a></span></td>
             <td>@item.Job</td>
 
-            <td>
+            <td class="fixed-width-td">
                 <span class="is-size-3">@item.Points[0].Value</span>
             </td>
 
-            @for(var i = 1; i< item.Points.Count(); i++)
+            @for (var i = 1; i < item.Points.Count(); i++)
             {
-        <td align="left">
-            @if (item.Points[i].IsMaximum == true)
-            {
-                <div class="has-crown-mark">
-                    <span class="icon crown-mark">
-                        <i class="fas fa-crown"></i>
+                <td align="left" class="fixed-width-td @((item.Points[i].Value > item.Points[i-1].Value) ? "td-has-success" : "")">
+                    @if (item.Points[i].IsMaximum == true)
+                    {
+                        <div class="has-crown-mark">
+                            <span class="icon crown-mark">
+                                <i class="fas fa-crown"></i>
+                            </span>
+                            <span class="is-size-3">@item.Points[i].Value</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="is-size-3">@item.Points[i].Value</span>
+                    }
+                    @if (item.Points[i].Value > item.Points[i - 1].Value)
+                    {
+                        <span class="icon has-text-success">
+                            <i class="fas fa-angle-double-up"></i>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="icon has-text-danger">
+                            <i class="fas fa-angle-double-down"></i>
+                        </span>
+                    }
+                    <span class="is-size-6">
+                        @if (item.Points[i].Gap > 0)
+                        {
+                            <span>+</span>
+                        }
+                        @item.Points[i].Gap.ToString("p")
                     </span>
-                    <span class="is-size-3">@item.Points[i].Value</span>
-                </div>
-            }
-            else
-            {
-                <span class="is-size-3">@item.Points[i].Value</span>
-            }
-            @if (item.Points[i].Value > item.Points[i - 1].Value)
-            {
-                <span class="icon has-text-success">
-                    <i class="fas fa-angle-double-up"></i>
-                </span>
-            }
-            else
-            {
-                <span class="icon has-text-danger">
-                    <i class="fas fa-angle-double-down"></i>
-                </span>
-            }
-            <span class="is-size-6">
-                @if(item.Points[i].Gap > 0)
-                {
-                    <span>+</span>
-                }
-                @item.Points[i].Gap.ToString("p")
-            </span>
-        </td>
+                </td>
             }
         </tr>
     }

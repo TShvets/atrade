@@ -32,7 +32,8 @@ table.table-has-arrows td {
 .has-crown-mark{
     line-height: 1;
     position: relative;
-    padding-top: 25px;
+    padding-top: 35px;
+    display:inline;
 }
 
 .has-crown-mark .crown-mark{
@@ -46,4 +47,25 @@ table.table-has-arrows td {
     align-items: center;
     justify-content: center;
     height: 10rem;
+}
+
+table.fixed-width-table{
+    display: block;
+    overflow-x: scroll;
+}
+
+td.fixed-width-td{
+    min-width: 175px;
+}
+
+.main-navbar{
+    margin-bottom: 150px;
+}
+
+.filter-button-group{
+    justify-content: flex-end;
+}
+
+td.td-has-success {
+    background-color: #f0fff0;
 }

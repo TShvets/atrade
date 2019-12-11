@@ -35,23 +35,40 @@ namespace PeopleReport.Wrappers
             List<PointWrapper> result = new List<PointWrapper>();
             if (source.Points.Count() > 0)
             {
-                result.Add(new PointWrapper { Date = source.Points.ToList()[0].Date, IsVacation = source.Points.ToList()[0].IsVacation, Value = source.Points.ToList()[0].Value, Gap = 1 });
+                result.Add(new PointWrapper { 
+                    Index = source.Points.ToList()[0].Index, 
+                    Date = source.Points.ToList()[0].Date, 
+                    IsVacation = source.Points.ToList()[0].IsVacation, 
+                    Value = source.Points.ToList()[0].Value, 
+                    Gap = 1 
+                });
             }
             if (source.Points.Count() > 1)
             {
                 var previousValue = source.Points.ToList()[0].Value;
                 var currentValue = source.Points.ToList()[1].Value;
 
-                result.Add(new PointWrapper { Date = source.Points.ToList()[1].Date, IsVacation = source.Points.ToList()[1].IsVacation, Value = source.Points.ToList()[1].Value, Gap = previousValue == 0 ? 1 : ((currentValue - previousValue) / previousValue) });
+                result.Add(new PointWrapper {
+                    Index = source.Points.ToList()[1].Index, 
+                    Date = source.Points.ToList()[1].Date, 
+                    IsVacation = source.Points.ToList()[1].IsVacation, 
+                    Value = source.Points.ToList()[1].Value, 
+                    Gap = previousValue == 0 ? 1 : ((currentValue - previousValue) / previousValue) 
+                });
             }
 
             for(var i = 2; i< source.Points.Count(); i++)
             {
-                var firstValue = source.Points.ToList()[i - 2].Value;
                 var secondValue = source.Points.ToList()[i - 1].Value;
                 var currentValue = source.Points.ToList()[i].Value;
 
-                result.Add(new PointWrapper { Date = source.Points.ToList()[i].Date, IsVacation = source.Points.ToList()[i].IsVacation, Value = source.Points.ToList()[i].Value, Gap = secondValue == 0 ? 1 : ((currentValue - secondValue)/secondValue ) });
+                result.Add(new PointWrapper {
+                    Index = source.Points.ToList()[i].Index, 
+                    Date = source.Points.ToList()[i].Date, 
+                    IsVacation = source.Points.ToList()[i].IsVacation, 
+                    Value = source.Points.ToList()[i].Value, 
+                    Gap = secondValue == 0 ? 1 : ((currentValue - secondValue)/secondValue ) 
+                });
             }
 
             return result;
