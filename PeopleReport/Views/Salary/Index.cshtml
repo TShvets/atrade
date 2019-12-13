@@ -5,54 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<div>
-    <h4>Salary</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalResult)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TotalResult)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-
-    </dl>
-</div>
 <div class="field is-horizontal">
-    <div class="field-label">
-        <label class="label">No padding</label>
+    <div class="field-label is-normal">
+        <label class="label">Прибыль на этой неделе (норма-4000):</label>
     </div>
     <div class="field-body">
         <div class="field">
             <div class="control">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Checkbox
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="field is-horizontal">
-    <div class="field-label is-small">
-        <label class="label">Small padding</label>
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <div class="control">
-                <input class="input is-small" type="text" placeholder="Small sized input">
+                <input class="input" type="text" placeholder="4000" value="4000" id="mainIncome">
             </div>
         </div>
     </div>
@@ -60,39 +21,123 @@
 
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">Normal label</label>
+        <label class="label">Результат статистики на этой неделе (x/36):</label>
     </div>
     <div class="field-body">
         <div class="field">
             <div class="control">
-                <input class="input" type="text" placeholder="Normal sized input">
+                <input class="input" type="text" placeholder="0.5" value="0.5" id="mainValue">
+            </div>
+        </div>
+    </div>
+</div>
+<h5>Уточняющие коэффициенты:</h5>
+
+
+<div class="field is-horizontal">
+    <div class="field-label is-small">
+        <label class="label">0.6 -> </label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="control">
+                <input class="input is-small multiprier-holder" type="text" placeholder="Small sized input" value="1.11" data-norma="0.6">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-small">
+        <label class="label">0.5 -> </label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="control">
+                <input class="input is-small multiprier-holder" type="text" placeholder="Small sized input" value="1.0" data-norma="0.5">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-small">
+        <label class="label">0.35 -> </label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="control">
+                <input class="input is-small multiprier-holder" type="text" placeholder="Small sized input" value="0.7" data-norma="0.35">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-small">
+        <label class="label">0.2 -> </label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="control">
+                <input class="input is-small multiprier-holder" type="text" placeholder="Small sized input" value="0.5" data-norma="0.2">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-small">
+        <label class="label"></label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary" onclick="calculate()">Рассчитать</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-medium">
-        <label class="label">Medium label</label>
+<div class="field is-horizontal results-panel is-hidden">
+    <div class="field-label is-small">
+        <label class="label">Результат:</label>
     </div>
     <div class="field-body">
         <div class="field">
             <div class="control">
-                <input class="input is-medium" type="text" placeholder="Medium sized input">
+                <p id="resultHolder">xxx</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-large">
-        <label class="label">Large label</label>
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <div class="control">
-                <input class="input is-large" type="text" placeholder="Large sized input">
-            </div>
-        </div>
-    </div>
-</div>
+<script type="text/javascript">
+    var calculate = function () {
+        var multipriersElements = document.getElementsByClassName("multiprier-holder");
+        var possibleValues = [];
+        var multipliers = [];
+        for (var i = 0; i < multipriersElements.length; i++) {
+            possibleValues.push(multipriersElements[i].dataset.norma);
+            multipliers.push(multipriersElements[i].value);
+        }
+
+        var mainValueElement = document.getElementById("mainValue");
+        var mainValue = mainValueElement.value;
+
+        var position = 0;
+        for (var i = possibleValues.length - 1; i >= 0; i--) {
+            if (possibleValues[i] >= mainValue) {
+                position = i;
+                break;
+            }
+        }
+
+        var mainIncomeElement = document.getElementById("mainIncome");
+        var mainIncome = mainIncomeElement.value;
+
+        var result = multipliers[position] * 2200 / 4;
+        document.getElementById("resultHolder").innerHTML = result;
+
+        var hidden = document.getElementsByClassName("results-panel");
+        hidden[0].classList.remove("is-hidden");
+    }
+
+
+</script>

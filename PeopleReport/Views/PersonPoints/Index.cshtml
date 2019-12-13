@@ -100,7 +100,9 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td><span class="is-italic is-size-4"><a href="/Person?personId=@item.Id">@item.FirstName @item.SecondName</a></span></td>
+            <td><span class="is-italic is-size-4"><a href="/Person?personId=@item.Id">@item.FirstName @item.SecondName</a></span>
+            
+            </td>
             <td>@item.Job</td>
 
             <td class="fixed-width-td">
