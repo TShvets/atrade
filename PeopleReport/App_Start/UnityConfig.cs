@@ -43,7 +43,8 @@ namespace PeopleReport
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<IPersonPointsRepository, MockPersonPointsRepository>();
+            //container.RegisterType<IPersonPointsRepository, MockPersonPointsRepository>();
+            container.RegisterType<IPersonPointsRepository, ExcelPersonPointsRepository>();
         }
     }
 }
